@@ -27,4 +27,5 @@ jobs:
         npm i
         touch .env
         echo "${{secrets.env_file}}" > .env
+        pm2 restart portbackend
         
