@@ -7,7 +7,7 @@ import dbconnect from "./database/dbconnect.js";
 import userRouter from "./routers/userrouter.js";
 var app = express();
 dbconnect();
-app.use(cors());
+app.use(cors({ credentials: true, origin: ["https://jellyfish-app-2hde2.ondigitalocean.app","http://localhost:3000" ]}));
 app.use(cookieParser());
 app.use(express.json());
 app.get("/", (req, res) => {
