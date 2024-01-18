@@ -7,7 +7,7 @@ import dbconnect from "./database/dbconnect.js";
 import userRouter from "./routers/userrouter.js";
 var app = express();
 dbconnect();
-app.use(cors({origin:"*"}));
+app.use(cors({credentials: true,origin:"https://binodlamichhane.in",}));
 app.use(cookieParser());
 app.use(express.json());
 app.get("/", (req, res) => {
