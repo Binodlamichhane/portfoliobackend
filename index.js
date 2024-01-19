@@ -11,7 +11,7 @@ app.use(cors({credentials: true,origin:["https://jellyfish-app-2hde2.ondigitaloc
 app.use(cookieParser());
 app.use(express.json());
 app.get("/", (req, res) => {
-  res.send("<h1>Hello world</h1>");
+  res.send("<h1 style='background-color:#f7e2d7 ; height:100vh; display:flex; justify-content:center; align-items:center'>Sima, I Love You &#128150;</h1>");
 });
 
 app.use("/user", userRouter);
