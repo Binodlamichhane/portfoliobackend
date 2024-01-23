@@ -1,5 +1,5 @@
 import express from "express";
-import { signup,login,query } from "../controllers/userController.js";
+import { signup,login,query, googlelogin, googleSignIn } from "../controllers/userController.js";
 import sendEmail from "../middleware/nodemailer.js";
 import { verifytoken,expiretoken } from "../middleware/verifytoken.js";
 const router =express.Router();
@@ -12,5 +12,7 @@ router.route('/verify').get(verifytoken,(req,res)=>{
         message:'this user is loggedin'
     })
 })
+router.route('/googleSignIn').post(googleSignIn)
+router.route('/googlelogin').post(googlelogin);
 router.route('/expire').get(expiretoken)
 export default router;

@@ -1,7 +1,7 @@
-
+import { OAuth2Client } from "google-auth-library";
 import Users from "../models/usermodel.js"
 import Query from "../models/querymodel.js";
-
+// import gUsers from "../models/googelusermodel.js";
 
 //signup
 export const signup= async(req,res)=>{
@@ -57,6 +57,71 @@ export const login= async(req,res)=>{
   
 
 }
+
+export const googleSignIn= async(req,res)=>{
+    try{
+        const client = new OAuth2Client();
+        const ticket = await client.verifyIdToken({
+            idToken: req.body.credential,
+            audience: process.env.CLIENT_ID,
+        });
+        const payload = ticket.getPayload();
+        const {email,name} =payload;
+        console.log('hhihi')
+        const userfound=await Users.findOne({email});
+        if(userfound){
+            res.status(200).json({
+                message:"user signup successfully"
+            })
+        }else{
+            console.log('fkadfjl')
+            const userCreated= await Users.create({email,name});
+            res.status(200).json({
+                message:"user signup successfully"
+            })
+        }
+       
+    }catch(error){
+        res.status(500).json({
+            message:"cannot verify token"
+        })
+    }
+  
+}
+
+export const googlelogin= async(req,res)=>{
+    try{
+        const client = new OAuth2Client();
+        const ticket = await client.verifyIdToken({
+            idToken: req.body.credential,
+            audience: process.env.CLIENT_ID,
+        });
+        const payload = ticket.getPayload();
+
+        const {email,name} =payload;
+ 
+        const userfound=await Users.findOne({email});
+        if(userfound.email==email){
+            console.log('email')
+            const token=userfound.generateToken();
+            console.log('til',token);
+            res.cookie("token",token, { sameSite: 'none', secure: true});
+            res.status(200).json({
+                message:'login successfull'
+            })
+        }else{
+            res.status(404).json({
+                message:'user not found'
+            })
+        }
+    }catch(error){
+        res.status(500).json({
+            message:"cannot verify token"
+        })
+    }
+  
+}
+
 export const query=async(req,res)=>{
     try{
         const response = await Query.create({...req.body});

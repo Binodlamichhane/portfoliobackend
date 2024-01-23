@@ -7,11 +7,22 @@ import dbconnect from "./database/dbconnect.js";
 import userRouter from "./routers/userrouter.js";
 var app = express();
 dbconnect();
-app.use(cors({credentials: true,origin:["https://jellyfish-app-2hde2.ondigitalocean.app","http://localhost:5173"]}));
+app.use(
+  cors({
+    credentials: true,
+    origin: [
+      "https://jellyfish-app-2hde2.ondigitalocean.app",
+      "http://localhost:5173",
+      "http://127.0.0.1:5173"
+    ],
+  })
+);
 app.use(cookieParser());
 app.use(express.json());
 app.get("/", (req, res) => {
-  res.send("<h1 style='background-color:#f7e2d7 ; height:100vh; display:flex; justify-content:center; align-items:center'>Sima, I Love You &#128150;</h1>");
+  res.send(
+    "<h1 style='background-color:#f7e2d7 ; height:100vh; display:flex; justify-content:center; align-items:center'>Sima, I Love You &#128150;</h1>"
+  );
 });
 
 app.use("/user", userRouter);

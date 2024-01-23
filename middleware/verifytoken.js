@@ -10,7 +10,6 @@ export const verifytoken= async(req,res,next)=>{
             throw new Error('invalid user')
         }
     }catch(error){
-        console.log('fuck')
         res.status(401).json({
             message:error,
         })

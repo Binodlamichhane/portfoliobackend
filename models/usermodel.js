@@ -7,7 +7,7 @@ const userSchmea = new Schema({
     type: "string",
     required: [true, "email cannot be empty"],
   },
-  password: { type: "string", minLength: 8, required: true },
+  password: { type: "string", minLength: 8 },
 });
 userSchmea.pre('save', async function(next){
     if(!this.isModified('password')) return next();
@@ -18,7 +18,7 @@ userSchmea.methods.comparePassword= async function(password){
     return await bcrypt.compare(password,this.password)
 }
 userSchmea.methods.generateToken=function(){
- const token=jwt.sign({_id:this._id,email:this.email},process.env.SECRET,{expiresIn:'120s'})
+ const token=jwt.sign({_id:this._id,email:this.email},process.env.SECRET,{expiresIn:'1d'})
  return token;
 }
 const Users=model('Users',userSchmea);

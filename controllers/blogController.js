@@ -40,6 +40,7 @@
  export const getComment=async(req,res)=>{
     try{
         const response= await Comments.find({blogId:req.params.id}).populate("userId");
+        console.log('response-----------',response);
         res.status(200).json({
             status:'succes',
             data:response
