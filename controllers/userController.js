@@ -67,14 +67,13 @@ export const googleSignIn= async(req,res)=>{
         });
         const payload = ticket.getPayload();
         const {email,name} =payload;
-        console.log('hhihi')
         const userfound=await Users.findOne({email});
         if(userfound){
             res.status(200).json({
                 message:"user signup successfully"
             })
         }else{
-            console.log('fkadfjl')
+         
             const userCreated= await Users.create({email,name});
             res.status(200).json({
                 message:"user signup successfully"
@@ -104,7 +103,7 @@ export const googlelogin= async(req,res)=>{
         if(userfound.email==email){
             console.log('email')
             const token=userfound.generateToken();
-            console.log('til',token);
+        
             res.cookie("token",token, { sameSite: 'none', secure: true});
             res.status(200).json({
                 message:'login successfull'
