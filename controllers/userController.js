@@ -70,7 +70,7 @@ export const googleSignIn= async(req,res)=>{
         const userfound=await Users.findOne({email});
         if(userfound){
             res.status(200).json({
-                message:"user signup successfully"
+                message:"user already exist"
             })
         }else{
          
