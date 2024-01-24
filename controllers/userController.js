@@ -82,7 +82,7 @@ export const googleSignIn= async(req,res)=>{
        
     }catch(error){
         res.status(500).json({
-            message:"cannot verify token"
+            message:"signIn failed"
         })
     }
   
@@ -95,12 +95,14 @@ export const googlelogin= async(req,res)=>{
             idToken: req.body.credential,
             audience: process.env.CLIENT_ID,
         });
+        console.log('binodddd')
         const payload = ticket.getPayload();
 
         const {email,name} =payload;
  
         const userfound=await Users.findOne({email});
-        if(userfound.email==email){
+        console.log('userfound',userfound);
+        if(userfound?.email==email){
             console.log('email')
             const token=userfound.generateToken();
         
@@ -110,12 +112,13 @@ export const googlelogin= async(req,res)=>{
             })
         }else{
             res.status(404).json({
-                message:'user not found'
+                message:'You have not signIn'
             })
         }
     }catch(error){
         res.status(500).json({
-            message:"cannot verify token"
+            message:"cannot verify token",
+            error:error
         })
     }
   
