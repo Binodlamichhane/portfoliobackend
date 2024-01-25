@@ -17,13 +17,18 @@ app.use(
     ],
   })
 );
+app.use(express.static('dist'));
 app.use(cookieParser());
 app.use(express.json());
-app.get("/", (req, res) => {
-  res.send(
-    "<h1 style='background-color:#f7e2d7 ; height:100vh; display:flex; justify-content:center; align-items:center'>Sima, I Love You &#128150;</h1>"
-  );
-});
+
+// app.get("/", (req, res,next) => {
+//   res.send(
+//     // "<h1 style='background-color:#f7e2d7 ; height:100vh; display:flex; justify-content:center; align-items:center'>Sima, I Love You &#128150;</h1>"
+//   );
+//   next()
+// });
+
+
 
 app.use("/user", userRouter);
 app.use("/blog", blogRouter);
